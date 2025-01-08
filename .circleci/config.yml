@@ -3,12 +3,13 @@ orbs:
   helm: circleci/helm@3.1.0
 
 jobs:
-  install_chart:
+  install_helm_chart:
     docker:
       - image: cimg/python:3.8
     resource_class: small
     steps:
-      - helm/install-helm-client
+      - checkout
+      - helm/install_helm_client
       - run:
           name: Install Helm chart
           command: |
@@ -18,4 +19,4 @@ workflows:
   start-run: # This is the name of the workflow, feel free to change it to better match your workflow.
     # Inside the workflow, you define the jobs you want to run.
     jobs:
-      - install_chart
+      - install_helm_chart
