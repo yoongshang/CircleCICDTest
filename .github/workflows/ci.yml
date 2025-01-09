@@ -6,8 +6,8 @@ on:
       - main
 
 jobs:
-    install_helm:
-        name: Verify kubeconfig
+    upgrade_helm:
+        name: Upgrade Helm Chart
         runs-on: ubuntu-latest
 
         steps:
@@ -21,4 +21,5 @@ jobs:
           with:
             args: |
                 kubectl cluster-info && \
-                helm upgrade wordpress-basic .
+                helm upgrade wordpress-basic . && \
+                kubectl rollout status deployment/wordpress-basic
