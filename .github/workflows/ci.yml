@@ -47,4 +47,4 @@ jobs:
 
         - name: "Publish Helm Chart"
           run: |
-            helm push *.tgz oci://ghcr.io/${{ github.repository_owner }}/CircleCICDTest/helm-charts
+            helm push *.tgz oci://ghcr.io/${{ github.repository_owner }}
