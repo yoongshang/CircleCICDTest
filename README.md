@@ -1,6 +1,7 @@
 <!--- app-name: WordPress -->
 
 # Bitnami package for WordPress
+[![CI](https://github.com/yoongshang/CircleCICDTest/actions/workflows/ci.yml/badge.svg)](https://github.com/yoongshang/CircleCICDTest/actions/workflows/ci.yml)
 
 WordPress is the world's most popular blogging and content management platform. Powerful yet simple, everyone from students to global corporations use it to build beautiful, functional websites.
 
