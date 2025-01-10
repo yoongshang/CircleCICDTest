@@ -17,16 +17,6 @@ jobs:
         steps:
         - name: "Checkout repository"
           uses: actions/checkout@v4
-        - name: "Cache Helm dependencies"
-          uses: actions/cache@v3
-          with:
-            path: |
-              ~/.cache/helm
-              ./Chart.lock
-              ./charts/**
-            key: ${{ runner.os }}-helm-${{ hashFiles('**/Chart.lock') }}
-            restore-keys: |
-              ${{ runner.os }}-helm-
         - name: "Set up Helm"
           uses: azure/setup-helm@v4.2.0
         - name: "Login to Github OCI"
