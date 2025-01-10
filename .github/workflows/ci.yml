@@ -23,6 +23,7 @@ jobs:
             path: |
               ~/.cache/helm
               ./Chart.lock
+              ./charts/**
             key: ${{ runner.os }}-helm-${{ hashFiles('**/Chart.lock') }}
             restore-keys: |
               ${{ runner.os }}-helm-
