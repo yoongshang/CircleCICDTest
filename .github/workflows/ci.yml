@@ -6,23 +6,6 @@ on:
       - main
 
 jobs:
-    # upgrade_helm:
-    #     name: Upgrade Helm Chart
-    #     runs-on: ubuntu-24.04
-
-    #     steps:
-    #     - uses: actions/checkout@v4
-    #     - name: "Checkout repository"
-    #       run: echo "Checking out repository"
-    #     - name: "Upgrade Helm Chart"
-    #       uses: wahyd4/kubectl-helm-action@master
-    #       env:
-    #         KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
-    #       with:
-    #         args: |
-    #             kubectl cluster-info && \
-    #             helm upgrade --install wordpress-basic . --wait && \
-    #             kubectl rollout status deployment/wordpress-basic
     publish_helm:
         name: Publish Helm Chart
         runs-on: ubuntu-24.04
@@ -34,14 +17,23 @@ jobs:
         steps:
         - name: "Checkout repository"
           uses: actions/checkout@v4
+        - name: "Cache Helm dependencies"
+          uses: actions/cache@v3
+          with:
+            path: |
+              ~/.cache/helm
+              ./Chart.lock
+            key: ${{ runner.os }}-helm-${{ hashFiles('**/Chart.lock') }}
+            restore-keys: |
+              ${{ runner.os }}-helm-
         - name: "Set up Helm"
           uses: azure/setup-helm@v4.2.0
         - name: "Login to Github OCI"
-          uses: docker/login-action@v3
+          uses: docker/login-action@v2
           with:
+            registry: ghcr.io
             username: ${{ github.actor }}
             password: ${{ secrets.GITHUB_TOKEN }}
-            registry: ghcr.io
         - name: "Package Helm Chart"
           run: |
             helm package .
