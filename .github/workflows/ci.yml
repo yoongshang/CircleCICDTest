@@ -14,6 +14,9 @@ on:
 
 jobs:
     sample:
+      environment:
+        name: staging_environment
+        url: https://github.com
       name: Sample Job
       runs-on: ubuntu-latest
       steps:
